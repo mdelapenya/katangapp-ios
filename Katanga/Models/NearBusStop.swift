@@ -18,12 +18,31 @@
  @author Víctor Galán
  */
 
-import UIKit
+import Foundation
+import Marshal
 
-extension UIColor {
+struct NearBusStop : Unmarshaling {
 
-    open class var katangaYellow: UIColor {
-        return UIColor(red: 246/255.0, green: 236/255.0, blue: 94/255.0, alpha: 1.0)
+    let busStop: BusStop
+    let distance: Double
+    let times: [BusStopTime]
+
+    init(object: MarshaledObject) throws {
+        busStop = try object.value(for: "parada")
+        times = try object.value(for: "tiempos")
+        distance = try object.value(for: "distancia")
+    }
+
+}
+
+struct BusStopTime : Unmarshaling {
+
+    let id: String
+    let minutes: Double
+
+    init(object: MarshaledObject) throws {
+        id = try object.value(for: "idl")
+        minutes = try object.value(for: "time")
     }
 
 }

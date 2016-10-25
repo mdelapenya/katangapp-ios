@@ -18,12 +18,25 @@
  @author Víctor Galán
  */
 
-import UIKit
+import Foundation
+import Marshal
 
-extension UIColor {
+struct Route : Unmarshaling {
 
-    open class var katangaYellow: UIColor {
-        return UIColor(red: 246/255.0, green: 236/255.0, blue: 94/255.0, alpha: 1.0)
+    let busStops: [BusStop]
+    let id: String
+    let link: String
+    let name: String
+
+    init(object: MarshaledObject) throws {
+        id = try object.value(for: "id")
+        link = try object.value(for: "links.self")
+
+        let rawName: String = try object.value(for: "name")
+
+        name = rawName.components(separatedBy: ")").last ?? ""
+
+        busStops = try object.value(for: "busStops")
     }
 
 }

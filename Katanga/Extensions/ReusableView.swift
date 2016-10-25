@@ -20,10 +20,14 @@
 
 import UIKit
 
-extension UIColor {
+protocol ReusableView: class { }
 
-    open class var katangaYellow: UIColor {
-        return UIColor(red: 246/255.0, green: 236/255.0, blue: 94/255.0, alpha: 1.0)
+extension ReusableView where Self : UIView {
+
+    static var reuseIdentifier: String {
+        return String(describing: self)
     }
 
 }
+
+extension UITableViewCell: ReusableView {}

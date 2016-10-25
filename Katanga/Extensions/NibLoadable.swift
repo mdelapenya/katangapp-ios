@@ -20,10 +20,14 @@
 
 import UIKit
 
-extension UIColor {
+protocol NibLoadableView: class { }
 
-    open class var katangaYellow: UIColor {
-        return UIColor(red: 246/255.0, green: 236/255.0, blue: 94/255.0, alpha: 1.0)
+extension NibLoadableView where Self : UIView {
+
+    static var nibName: String {
+        return String(describing: self)
     }
 
 }
+
+extension UITableViewCell: NibLoadableView {}
